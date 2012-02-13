@@ -75,7 +75,8 @@
 
 .ruler-cell[wrap-cell="true"],
 #ruler-wrap {
-	height: 0.8em;
+	/*height: 0.8em;*/
+	height: 50%;
 	margin-bottom: 0.2em;
 	opacity: 0.75;
 	border-left: 2px solid;

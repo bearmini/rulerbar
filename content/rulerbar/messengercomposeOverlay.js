@@ -359,6 +359,7 @@ var RulerBar = {
 	onWrapMarkerDragStart : function(aEvent) 
 	{
 		this.activateWrapMarker();
+		this.wrapMarker.setAttribute('dragging', true);
 
 		this.onWrapMarkerDragging(aEvent);
 	},
@@ -367,6 +368,7 @@ var RulerBar = {
 	{
 		if (!this.wrapMarker.hasAttribute('dragging'))
 			return;
+
 
 		var wrap = this.calculateWrapLength(aEvent);
 		this.wrapPopup.firstChild.setAttribute('value', wrap);
@@ -386,6 +388,8 @@ var RulerBar = {
 		this.wrapPopup.hidePopup();
 		this.deactivateWrapMarker();
 
+		this.wrapMarker.removeAttribute('dragging');
+
 		var wrap = this.calculateWrapLength(aEvent);
 		this.updateWrapMarker(wrap);
 		if (wrap != this.wrapLength)
@@ -397,7 +401,7 @@ var RulerBar = {
 		if (this.wrapMarker.hasAttribute('dragging'))
 			return;
 
-		this.wrapMarker.setAttribute('dragging', true);
+	//	this.wrapMarker.setAttribute('dragging', true);
 
 		var indicator = this.wrapIndicator;
 		if (indicator)
@@ -415,6 +419,7 @@ var RulerBar = {
 			'border-left: 1px dashed '+this.color+' !important;'+
 			'opacity: 0.65 !important;'
 		);
+		indicator.style.marginLeft = this.wrapMarker.style.marginLeft;
 		doc.body.appendChild(indicator);
 
 		this.bar.addEventListener('mousemove', this, false);
@@ -430,9 +435,9 @@ var RulerBar = {
 
 		this.wrapMarker.removeAttribute('dragging');
 
-		var indicator = this.wrapIndicator;
-		if (indicator)
-			indicator.parentNode.removeChild(indicator);
+		//var indicator = this.wrapIndicator;
+		//if (indicator)
+			//indicator.parentNode.removeChild(indicator);
 
 		this.bar.removeEventListener('mousemove', this, false);
 		this.bar.removeEventListener('mouseup', this, false);
@@ -608,6 +613,7 @@ var RulerBar = {
 			aSelf.buildRulerMarks();
 			aSelf.updateWrapMarker();
 			aSelf.updateCursor();
+			aSelf.activateWrapMarker();
 			aSelf._updateRulerAppearanceTimer = null;
 		}, 0, this);
 	},
